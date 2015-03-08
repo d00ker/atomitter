@@ -24,3 +24,5 @@ We'll don't create functionaled .app file until first stable realse so:
 2. `./run_app.sh` (you can see what it does by reading script)
 
 If you have a question/suggestion/advice or just want to talk you can always write to [@evlogii](https://twitter.com/evlogii) (it's me =) or better feel free to create an issue here on github.
+
+Cheers!
