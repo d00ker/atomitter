@@ -6,17 +6,17 @@ Why you should use it? Because atomitter support all twitter feature right after
 
 ####Pros:####
 
-	1. It's open source (and free) forever!
-	2. Support all twitter features!
-	2. Its better than just tab in browser.
-	3. Its even better than official twitter client because we add some features
-	4. ...
+- It's open source (and free) forever!
+- Support all twitter features!
+- Its better than just tab in browser.
+- Its even better than official twitter client because we add some features
+- ...
 
 ####Cons:####
 
-	1. Slower than native apps
-	2. May be glitchy
-	3. ads 😐 [potentially fixed :-]
+- Slower than native apps
+- May be glitchy
+- ads 😐 [potentially fixed :-]
 
 We'll don't create functionaled .app file until first stable realse so:
 
