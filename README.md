@@ -18,10 +18,10 @@ Why you should use it? Because atomitter support all twitter feature right after
 - May be glitchy
 - ads 😐 [potentially fixed :-]
 
-We'll don't create functionaled .app file until first stable realse so:
+We'll don't create functionaled .app file until first stable realse, so you should perform this in console:
 
-1. `./build.sh` (it just download atom.app through [grunt](https://github.com/atom/grunt-download-atom-shell))
-2. `./run_app.sh` (you can see what it does by reading script)
+1. `$ ./build.sh` (it just download atom.app through [grunt](https://github.com/atom/grunt-download-atom-shell))
+2. `$ ./run_app.sh` (you can see what it does by reading script)
 
 If you have a question/suggestion/advice or just want to talk you can always write to [@evlogii](https://twitter.com/evlogii) (it's me =) or better feel free to create an issue here on github.
 
