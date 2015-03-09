@@ -18,7 +18,7 @@ app.on('window-all-closed', function() {
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow ({'width':1000,'height':600,'min-width':1000,'min-height':600,'max-width':1200, 'max-height':1000});
+  mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
   // and load the index.html of the app.
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...'); 
