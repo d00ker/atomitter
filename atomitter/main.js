@@ -14,9 +14,7 @@ app.on('window-all-closed', function() {
     app.quit();
 });
 
-// This method will be called when atom-shell has done everything
-// initialization and ready for creating browser windows.
-app.on('ready', function() {
+var handleWindow = function() {
   // Create the browser window.
   mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
   // and load the index.html of the app.
@@ -24,8 +22,17 @@ app.on('ready', function() {
   console.log('twitter.com is loading...'); 
 
   mainWindow.webContents.on('did-finish-load', function() {
-  	console.log('twitter.com is loaded!'); 
-  	mainWindow.webContents.executeJavaScript("alert('pyes!');");
+    console.log('twitter.com is loaded!'); 
+    mainWindow.webContents.executeJavaScript("alert('pyes!');");
+  });
+
+  mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
+    if (disposition != 'default') {
+      event.preventDefault();
+      var exec = require('child_process').exec, child; // wtf?
+      child = exec('open ' + url + ' -g');
+      console.log('open ' + url + ' -g'); 
+    }
   });
 
   // Emitted when the window is closed.
@@ -35,4 +42,10 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-});
+};
+
+// This method will be called when atom-shell has done everything
+// initialization and ready for creating browser windows.
+app.on('ready', handleWindow);
+app.on('activate-with-no-open-windows', handleWindow);
+app.dock.setBadge("23");
