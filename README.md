@@ -31,3 +31,4 @@ ToDo list:
   1. Favorites in top left menu
   2. Add quote retweet
   3. Add support of third party images(instagram, imgur, all gpegs at least)
+  4. open window at the same place with same size
