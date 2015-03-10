@@ -12,7 +12,6 @@ var mainWindow = null;
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin')
     app.quit();
-    app.terminate()
 });
 
 var handleWindow = function() {
@@ -28,17 +27,18 @@ var handleWindow = function() {
     console.log('twitter.com is loaded!'); 
     mainWindow.webContents.executeJavaScript("alert('cat!');");
   });
+
   // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
     if (disposition != 'default') {
       event.preventDefault();
-      if (process.platform != 'darwin') {
+      if (process.platform = 'darwin') {
         var exec = require('child_process').exec, child; // wtf?
         child = exec('open ' + url + ' -g');
         console.log('open ' + url + ' -g');
       } else { // if not OSX
-        shell = require('shell');
-        shell.opemExternal(url);
+        var shell = require('shell');
+        shell.openExternal(url);
       }
     }
   });
