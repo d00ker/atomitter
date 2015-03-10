@@ -12,29 +12,36 @@ var mainWindow = null;
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin')
     app.quit();
+    app.terminate()
 });
 
 var handleWindow = function() {
+
+
   // Create the browser window.
   mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
-  // and load the index.html of the app.
+  // and load the twitter.com
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...'); 
-
+  // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!'); 
-    mainWindow.webContents.executeJavaScript("alert('pyes!');");
+    mainWindow.webContents.executeJavaScript("alert('cat!');");
   });
-
+  // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
     if (disposition != 'default') {
       event.preventDefault();
-      var exec = require('child_process').exec, child; // wtf?
-      child = exec('open ' + url + ' -g');
-      console.log('open ' + url + ' -g'); 
+      if (process.platform != 'darwin') {
+        var exec = require('child_process').exec, child; // wtf?
+        child = exec('open ' + url + ' -g');
+        console.log('open ' + url + ' -g');
+      } else { // if not OSX
+        shell = require('shell');
+        shell.opemExternal(url);
+      }
     }
   });
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -48,4 +55,4 @@ var handleWindow = function() {
 // initialization and ready for creating browser windows.
 app.on('ready', handleWindow);
 app.on('activate-with-no-open-windows', handleWindow);
-app.dock.setBadge("23");
+app.dock.setBadge("@d00ker@d00ker@d00ker");
