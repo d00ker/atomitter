@@ -30,5 +30,7 @@ Cheers!
 ToDo list:
   1. Favorites in top left menu
   2. Add quote retweet
+  3. right mb quote
+  4. right mb open link/tweet in default browser
   3. Add support of third party images(instagram, imgur, all gpegs at least)
-  4. open window at the same place with same size
+  4. open window at the same place with same size it has been closed
