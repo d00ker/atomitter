@@ -16,7 +16,7 @@ Why you should use it? Because atomitter support all twitter feature right after
 
 - Slower than native apps
 - Can't synchronise clients on different devices
-- ads 😐 [potentially fixed :-]
+- Ads 😐 [potentially fixed :-]
 
 We'll don't create functionaled .app file until first stable realse, so you should perform this in console:
 
@@ -30,7 +30,6 @@ Cheers!
 ToDo list:
   1. Favorites in top left menu
   2. Add quote retweet
-  3. right mb quote
-  4. right mb open link/tweet in default browser
+  3. right mouse button quote tweet
+  4. right mouse button open link/tweet in default browser
   3. Add support of third party images(instagram, imgur, all gpegs at least)
-  4. open window at the same place with same size it has been closed
