@@ -1,5 +1,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var windowPosition = null;
+var windowSize = null;
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -15,13 +17,19 @@ app.on('window-all-closed', function() {
 });
 
 var handleWindow = function() {
-
-
   // Create the browser window.
   mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
+  // set size and position
+  if ((windowPosition != null) && (windowSize != null)) {
+    console.log(windowSize);
+    console.log(windowPosition);
+    mainWindow.setSize(windowSize[0], windowSize[1]);
+    mainWindow.setPosition(windowPosition[0], windowPosition[1]);
+  }
   // and load the twitter.com
   mainWindow.loadUrl('https://twitter.com');
-  console.log('twitter.com is loading...'); 
+  console.log('twitter.com is loading...');
+
   // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!'); 
@@ -42,6 +50,13 @@ var handleWindow = function() {
       }
     }
   });
+  // Emitted when the window is prepare to be closed.
+  mainWindow.on('close', function() {
+    windowPosition = mainWindow.getPosition();
+    console.log('position has been saved!');
+    windowSize = mainWindow.getSize();
+    console.log('size has been saved!');
+  });
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -55,4 +70,4 @@ var handleWindow = function() {
 // initialization and ready for creating browser windows.
 app.on('ready', handleWindow);
 app.on('activate-with-no-open-windows', handleWindow);
-app.dock.setBadge("@d00ker@d00ker@d00ker");
+app.dock.setBadge("badge");
