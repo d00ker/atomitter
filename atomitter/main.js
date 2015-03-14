@@ -33,7 +33,7 @@ var handleWindow = function() {
   //Dynamically load jqery
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!'); 
-    mainWindow.webContents.executeJavaScript('(function () {function loadScript(url, callback) {var script = document.createElement("script")script.type = "text/javascript";if (script.readyState) { //IEscript.onreadystatechange = function () {if (script.readyState == "loaded" || script.readyState == "complete") {script.onreadystatechange = null;callback();}};} else { //Othersscript.onload = function () {callback();};}script.src = url;document.getElementsByTagName("head")[0].appendChild(script);}loadScript("https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function () {console.log("jquery loaded");});})();');
+    mainWindow.webContents.executeJavaScript('(function () {function loadScript(url, callback) {var script = document.createElement("script")script.type = "text/javascript";if (script.readyState) { //IEscript.onreadystatechange = function () {if (script.readyState == "loaded" || script.readyState == "complete") {script.onreadystatechange = null;callback();}};} else { //Othersscript.onload = function () {callback();};}script.src = url;document.getElementsByTagName("head")[0].appendChild(script);}loadScript("https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js", function () {console.log("jquery loaded");});})();');
   });
 
   // Do some JS after page is loaded.
