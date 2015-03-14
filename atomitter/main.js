@@ -30,11 +30,20 @@ var handleWindow = function() {
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...');
 
+  //Dynamically load jqery
+  mainWindow.webContents.on('did-finish-load', function() {
+    console.log('twitter.com is loaded!'); 
+    mainWindow.webContents.executeJavaScript('(function () {function loadScript(url, callback) {var script = document.createElement("script")script.type = "text/javascript";if (script.readyState) { //IEscript.onreadystatechange = function () {if (script.readyState == "loaded" || script.readyState == "complete") {script.onreadystatechange = null;callback();}};} else { //Othersscript.onload = function () {callback();};}script.src = url;document.getElementsByTagName("head")[0].appendChild(script);}loadScript("https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function () {console.log("jquery loaded");});})();');
+  });
+
   // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!'); 
-    mainWindow.webContents.executeJavaScript("alert('cat!');");
+    mainWindow.webContents.executeJavaScript("var msg;if (window.jQuery) {msg = 'You are running jQuery version: ' + jQuery.fn.jquery;} else {msg = 'jQuery is not installed';}alert(msg);");
   });
+
+
+
 
   // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
