@@ -18,7 +18,7 @@ app.on('window-all-closed', function() {
 
 var handleWindow = function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
+  mainWindow = new BrowserWindow ({'width':860,'height':600,'min-width':860,'min-height':600,'max-width':860, 'max-height':2000, 'zoom-factor': 0.95});
   // set size and position
   if ((windowPosition != null) && (windowSize != null)) {
     console.log(windowSize);
@@ -35,11 +35,9 @@ var handleWindow = function() {
   // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!'); 
-    mainWindow.webContents.executeJavaScript("var msg;if (window.jQuery) {msg = 'You are running jQuery version: ' + jQuery.fn.jquery;} else {msg = 'jQuery is not installed';}alert(msg);");
+    //mainWindow.webContents.insertCSS("#fav-btn .Icon.Icon--discover.Icon--large:before {content: '';}");
+    mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/6534139/twitter.js", function() {});');
   });
-
-
-
 
   // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
