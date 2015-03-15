@@ -16,13 +16,20 @@ app.on('window-all-closed', function() {
     app.quit();
 });
 
-var handleWindow = function() {
+// This method will be called when atom-shell has done everything
+// initialization and ready for creating browser windows.
+app.on('ready', handleWindow);
+app.on('activate-with-no-open-windows', handleWindow);
+
+app.dock.setBadge("badge");
+
+function handleWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow ({'width':860,'height':600,'min-width':860,'min-height':600,'max-width':860, 'max-height':2000, 'zoom-factor': 0.95});
+  mainWindow = new BrowserWindow ({'width':890,'height':600,'min-width':890,'min-height':600,'max-width':890, 'max-height':2000, 'zoom-factor': 0.95});
   // set size and position
   if ((windowPosition != null) && (windowSize != null)) {
-    console.log(windowSize);
-    console.log(windowPosition);
+    console.log("windowSize is " + windowSize);
+    console.log("windowPosition is " + windowPosition);
     mainWindow.setSize(windowSize[0], windowSize[1]);
     mainWindow.setPosition(windowPosition[0], windowPosition[1]);
   }
@@ -30,13 +37,11 @@ var handleWindow = function() {
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...');
 
-  mainWindow.insertCSS('body {background-color: white;}');
-
   // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
-    console.log('twitter.com is loaded!'); 
-    //mainWindow.webContents.insertCSS("#fav-btn .Icon.Icon--discover.Icon--large:before {content: '';}");
-    mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/6534139/twitter.js", function() {});');
+    console.log('twitter.com is loaded!');
+    //mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/6534139/twitter.js", function() {});');
+    mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/15085042/atomitter.js", function() {});');
   });
 
   // Handle link clicks.
@@ -68,9 +73,3 @@ var handleWindow = function() {
     mainWindow = null;
   });
 };
-
-// This method will be called when atom-shell has done everything
-// initialization and ready for creating browser windows.
-app.on('ready', handleWindow);
-app.on('activate-with-no-open-windows', handleWindow);
-app.dock.setBadge("badge");

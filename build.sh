@@ -1,12 +1,16 @@
 #! /usr/bin/env bash
 set -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#echo $DIR
 
-pushd "${DIR}/build"
-	npm install -g grunt-cli
-	npm install
-	grunt download-atom-shell
-popd
+git clone https://github.com/atom/atom-shell.git
 
-"${DIR}/build/atom-shell/Atom.app/Contents/MacOS/Atom" "${DIR}/hello-app" 
+rm -r atom-shell/atom/browser/default_app/*
+cp atomitter/* atom-shell/atom/browser/default_app
+
+cd atom-shell
+./script/bootstrap.py -v
+./script/build.py
+#./script/test.py
+open out/Debug/Atom.app
