@@ -41,7 +41,8 @@ function handleWindow() {
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!');
     //mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/6534139/twitter.js", function() {});');
-    mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/15085042/atomitter.js", function() {});');
+    //mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/15085042/atomitter.js", function() {});');
+    mainWindow.webContents.executeJavaScript('$.getScript( "https://raw.githubusercontent.com/evlogii/atomitter/master/atomitter/atomitter.js", function() {});');
   });
 
   // Handle link clicks.
