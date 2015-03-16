@@ -6,9 +6,9 @@ Why you should use it? Because atomitter support all twitter feature right after
 
 ####Pros:####
 
-- It's open source (and free) forever!
-- Support all twitter features!
-- Its better than just tab in browser.
+- It's open source (and free) forever
+- Support all twitter features
+- Its better than just tab in browser
 - Its even better than official twitter client because we add some features
 - ...
 
