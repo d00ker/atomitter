@@ -18,21 +18,16 @@ Why you should use it? Because atomitter support all twitter feature right after
 - Can't synchronise clients on different devices
 - Ads 😐 [potentially fixed :-]
 
-You can run:
+To run app you can execute:
 
-`$ ./build.sh` (build atomitter using atom sources)
+  `$ ./build.sh` (build atomitter using atom sources)
 
 Or:
 
-Just download latest verions of Atom.app and drag-n-drop atomitter folder to it.
+  Just download [latest](https://github.com/atom/atom-shell/releases/latest) verions of Atom.app and drag-n-drop atomitter folder to it.
 
-If you have a question/suggestion/advice or just want to talk you can always write to [@evlogii](https://twitter.com/evlogii) or (better) feel free to create an issue here on github.
+We'll create full functionaled native app later.
+
+If you have a question/suggestion/advice or just want to talk you can always write to [@evlogii](https://twitter.com/evlogii) or feel free to create an issue here on github.
 
 Cheers!
-
-ToDo list:
-  2. Add quote retweet
-  3. right mouse button quote tweet
-  4. right mouse button open link/tweet in default browser
-  5. right mouse button copy link
-  3. Add support of third party images(instagram, imgur, all gpegs at least)
