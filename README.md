@@ -1,27 +1,26 @@
-
 #atomitter#
-**atomitter** it's just wrapper for Twitter Web Client (aka [twitter.com](https://twitter.com)) based on [Atom Shell](https://github.com/atom/atom-shell)
+**atomitter** is just a wrapper for Twitter Web Client (aka [twitter.com](https://twitter.com)) based on [Atom Shell](https://github.com/atom/atom-shell)
 
-Why you should use it? Because atomitter support all twitter feature right after twitter add it to his own site and it better than just tab in browser! It's separate app!
+Why should one use it? Because atomitter suppots all twitter features right after twitter ads them to its own site and it's better than just a browser tab! It's a separated app!
 
 ####Pros:####
 
-- It's open source (and free) forever
-- Support all twitter features
-- Its better than just tab in browser
-- Its even better than official twitter client because we add some features
+- It's open source (and free)
+- Supports all twitter features
+- It's better than just a browser tab!
+- It's even better than the official twitter client because we added some extra features.
 - ...
 
 ####Cons:####
 
 - Slower than native apps
 - Can't synchronise clients on different devices
-- Ads 😐 [potentially fixed :-]
+- Ads 😐 [potentially fixable ☺
 
-To run app you can execute: `$ ./build.sh` (build atomitter using atom shell sources)  
-Or: Just download [latest](https://github.com/atom/atom-shell/releases/latest) verions of Atom.app and drag-n-drop atomitter folder to it.
+To run the app one can execute `$ ./build.sh` (to build atomitter using atom shell sources) 
+Or: Just download the [latest](https://github.com/atom/atom-shell/releases/latest) version of Atom.app and drag-n-drop atomitter folder to it.
 
-We'll create full functionaled native app later.
+Later we're going to create fully functional app.
 
 If you have a question/suggestion/advice or just want to talk you can always write to [@evlogii](https://twitter.com/evlogii) or feel free to create an issue here on github.
 
