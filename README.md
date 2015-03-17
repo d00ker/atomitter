@@ -17,8 +17,8 @@ Why should one use it? Because atomitter suppots all twitter features right afte
 - Can't synchronise clients on different devices
 - Ads 😐 (potentially fixable)
 
-To run the app one can execute `$ sudo ./build.sh` (to build atomitter using atom shell sources) 
-Or: Just download the [latest](https://github.com/atom/atom-shell/releases/latest) version of Atom.app and drag-n-drop atomitter folder to it.
+To run the app one can execute `sudo ./build.sh` (to build atomitter using atom shell sources) 
+Or just download the [latest](https://github.com/atom/atom-shell/releases/latest) version of Atom.app and drag-n-drop atomitter folder to it.
 
 Later we're going to create fully functional app.
 
