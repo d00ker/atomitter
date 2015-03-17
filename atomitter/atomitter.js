@@ -27,27 +27,38 @@ $(window).scroll(function() {
 		$('#timeline').width(590);
 	}
 });
-$('.stream-item').each(function(){
-	if ($(this).hasClass('js-has-navigable-stream')) {
-		$(this).find('.conversation-module > li').each(function() {
-			$(this).find('.ProfileTweet-action.ProfileTweet-action--retweet').clone().addClass("Quote").appendTo($(this).find('.ProfileTweet-actionList'));
-			$(this).find('.Quote').find('.ProfileTweet-actionCount').remove();
-		});
-	} else {
-		$(this).find('.ProfileTweet-action.ProfileTweet-action--retweet').clone().addClass("Quote").appendTo($(this).find('.ProfileTweet-actionList'));
-		$(this).find('.Quote').find('.ProfileTweet-actionCount').remove();
-	}
+// $('.stream-item').each(function(){
+// 	if ($(this).hasClass('js-has-navigable-stream')) {
+// 		$(this).find('.conversation-module > li').each(function() {
+// 			$(this).find('.ProfileTweet-action.ProfileTweet-action--retweet').clone().addClass("Quote").appendTo($(this).find('.ProfileTweet-actionList'));
+// 			$(this).find('.Quote').find('.ProfileTweet-actionCount').remove();
+// 		});
+// 	} else {
+// 		$(this).find('.ProfileTweet-action.ProfileTweet-action--retweet').clone().addClass("Quote").appendTo($(this).find('.ProfileTweet-actionList'));
+// 		$(this).find('.Quote').find('.ProfileTweet-actionCount').remove();
+// 	}
+// });
+// $('.Quote').click(function() {
+// 	$(this).find('.js-actionRetweet').remove()
+// 	$('#global-new-tweet-button').click();
+// 	var tweetText = $(this).parents($('.stream-item-footer')).siblings('.js-tweet-text').text();
+// 	var userName = $(this).parents($('.stream-item-footer')).siblings('.stream-item-header').find('.username').html();
+// 	$('#tweet-box-global').html('RT '+userName+': "'+tweetText+'"');
+// });
+$('.js-actionRetweet').click(function() {
+	$('.quote-action').remove();
+	$('<button class="btn primary-btn quote-action">Процитировать</button>').prependTo('#retweet-tweet-dialog .modal-footer');
+	$('.retweet-action').before($('.quote-action'));
+	$('.quote-action').click(function() {
+	$('#retweet-tweet-dialog .modal-close').click();
+		var tweetText = $(this).parent('.modal-footer').siblings('#retweet-tweet-dialog-body').find('.js-tweet-text').html();
+		var userName = $(this).parent('.modal-footer').siblings('#retweet-tweet-dialog-body').find('.username').html();
+		$('#global-new-tweet-button').click();
+		$('#global-tweet-dialog-header').text('Процитировать');
+		$('#tweet-box-global').html('"'+userName+': '+tweetText+'" ');
+	});
 });
-$('.Quote').click(function() {
-	$(this).find('.js-actionRetweet').remove()
-	$('#global-new-tweet-button').click();
-	var tweetText = $(this).parents($('.stream-item-footer')).siblings('.js-tweet-text').text();
-	var userName = $(this).parents($('.stream-item-footer')).siblings('.stream-item-header').find('.username').html();
-	$('#tweet-box-global').html('RT '+userName+': "'+tweetText+'"');
-});
-var evlogii = $('.people.notifications').find('.count-inner').text();
-alert(evlogii);
 $('.people.notifications').find('.count-inner').bind("DOMSubtreeModified",function(){
 	var pes = $(this).text();
-	alert(pes);
+	//alert(pes);
 });
