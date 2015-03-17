@@ -1,7 +1,7 @@
 #atomitter#
 **atomitter** is just a wrapper for Twitter Web Client (aka [twitter.com](https://twitter.com)) based on [Atom Shell](https://github.com/atom/atom-shell)
 
-Why should one use it? Because atomitter suppots all twitter features right after twitter ads them to its own site and it's better than just a browser tab! It's a separated app!
+Why should one use it? Because atomitter suppots all twitter features right after twitter adds them to its own site and it's better than just a browser tab! It's a separate app!
 
 ####Pros:####
 
