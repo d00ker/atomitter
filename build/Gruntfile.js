@@ -9,15 +9,7 @@ module.exports = function(grunt) {
       outputDir: "./app",
       rebuild: true,
     },
-
-    uglify: {
-      main: {
-        files: {
-          'app/Atom.app/Contents/Resources/app/atomitter.min.js' : 'app/Atom.app/Contents/Resources/app/atomitter.js',
-        }
-      }
-    },
-
+    
     copy: {
       main: {
         expand: 'true',
@@ -33,5 +25,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-download-atom-shell');
 
-  grunt.registerTask('default', ['download-atom-shell', 'copy', 'uglify']);
+  grunt.registerTask('default', ['download-atom-shell', 'copy']);
 };

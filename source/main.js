@@ -26,9 +26,8 @@ app.on('activate-with-no-open-windows', handleWindow);
 app.dock.setBadge("badge");
 
 function handleWindow() {
-  var javascriptOnWebPage;
   // Create the browser window.
-  mainWindow = new BrowserWindow ({'width':890,'height':600,'min-width':890,'min-height':600,'max-width':890, 'max-height':2000, 'zoom-factor': 0.95});
+  mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
   // set size and position
   if ((windowPosition != null) && (windowSize != null)) {
     console.log("windowSize is " + windowSize);
@@ -36,19 +35,28 @@ function handleWindow() {
     mainWindow.setSize(windowSize[0], windowSize[1]);
     mainWindow.setPosition(windowPosition[0], windowPosition[1]);
   }
-  // and load the twitter.com
+  // load the twitter.com
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...');
 
-  // Do some JS after page is loaded.
+  // Do some stuff after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!');
-    pathToJS = __dirname + '/atomitter.js';
+    var pathToJS = __dirname + '/atomitter.js';
+    var pathToCSS = __dirname + '/atomitter.css';
     console.log("pathToJS is: " + pathToJS);
+    console.log("pathToCSS is: " + pathToCSS);
+    // load js
     fs.readFile(pathToJS, 'utf8', function (err, data) {
       if (err) throw err;
-      console.log("javascriptOnWebPage..." + data);
+      console.log("jsOnWebPage...\n\n" + data);
       mainWindow.webContents.executeJavaScript(data);
+    });
+    // load css
+    fs.readFile(pathToCSS, 'utf8', function (err, data) {
+      if (err) throw err;
+      console.log("cssOnWebPage...\n\n" + data);
+      mainWindow.webContents.insertCSS(data);
     });
   });
 
@@ -57,7 +65,7 @@ function handleWindow() {
     if (disposition != 'default') {
       event.preventDefault();
       if (process.platform = 'darwin') {
-        var exec = require('child_process').exec, child; // wtf?
+        var exec = require('child_process').exec, child;
         child = exec('open ' + url + ' -g');
         console.log('open ' + url + ' -g');
       } else { // if not OSX
