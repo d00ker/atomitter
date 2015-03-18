@@ -1,3 +1,4 @@
 /build/app
 /build/node_modules
 /atom-shell
+npm-debug.log

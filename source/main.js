@@ -1,5 +1,7 @@
 var app = require('app');  // Module to control application life.
+var fs = require('fs');
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+
 var windowPosition = null;
 var windowSize = null;
 
@@ -24,6 +26,7 @@ app.on('activate-with-no-open-windows', handleWindow);
 app.dock.setBadge("badge");
 
 function handleWindow() {
+  var javascriptOnWebPage;
   // Create the browser window.
   mainWindow = new BrowserWindow ({'width':890,'height':600,'min-width':890,'min-height':600,'max-width':890, 'max-height':2000, 'zoom-factor': 0.95});
   // set size and position
@@ -40,9 +43,13 @@ function handleWindow() {
   // Do some JS after page is loaded.
   mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!');
-    //mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/6534139/twitter.js", function() {});');
-    //mainWindow.webContents.executeJavaScript('$.getScript( "https://dl.dropboxusercontent.com/u/15085042/atomitter.js", function() {});');
-    mainWindow.webContents.executeJavaScript('$.getScript( "https://raw.githubusercontent.com/evlogii/atomitter/master/atomitter/atomitter.js", function() {});');
+    pathToJS = __dirname + '/atomitter.js';
+    console.log("pathToJS is: " + pathToJS);
+    fs.readFile(pathToJS, 'utf8', function (err, data) {
+      if (err) throw err;
+      console.log("javascriptOnWebPage..." + data);
+      mainWindow.webContents.executeJavaScript(data);
+    });
   });
 
   // Handle link clicks.

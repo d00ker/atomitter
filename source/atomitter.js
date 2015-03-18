@@ -1,5 +1,7 @@
 $('head').append('<link rel="stylesheet" type="text/css" href="https://dl.dropboxusercontent.com/u/6534139/twitter.css">');
+
 $('.topics').after('<li id="fav-btn" data-global-action="discover"><a data-nav="discover" data-component-term="discover_nav" data-placement="bottom" class="js-nav js-tooltip js-dynamic-tooltip fav-link" href="/favorites/"><span class="Icon Icon--discover Icon--large">&#9734;</span><span class="text">Favorites</span></a></li>');
+
 $('#fav-btn:hover').find('a').attr('data-original-title', 'Favorites');
 // var locHref = window.location.href;
 // jQuery(document).ready(function() {
@@ -17,7 +19,7 @@ function dashboardLeftHeight () {
 	var topSc = dL.top + dLH;
 	return topSc;
 }
-dashboardLeftHeight();
+
 $(window).scroll(function() {
 	var scrollTop = $(this).scrollTop();
 	var newTopSc = dashboardLeftHeight();
