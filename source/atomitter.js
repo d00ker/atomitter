@@ -1,20 +1,20 @@
 $('.topics').after('<li id="fav-btn" data-global-action="discover"><a data-nav="discover" data-component-term="discover_nav" data-placement="bottom" class="js-nav js-tooltip js-dynamic-tooltip fav-link" href="/favorites/"><span class="Icon Icon--discover Icon--large">&#9734;</span><span class="text">Favorites</span></a></li>');
+
 $('#fav-btn:hover').find('a').attr('data-original-title', 'Favorites');
 
-function dashboardLeftHeight () {
-	var dL = $('.dashboard-left').offset();
-	var dLH = $('.dashboard-left').height();
-	var topSc = dL.top + dLH;
-	return topSc;
-}
+var dashboardFullHeight = $('.dashboard').height() + $('.dashboard').offset().top;
 
 $(window).scroll(function() {
 	var scrollTop = $(this).scrollTop();
-	var newTopSc = dashboardLeftHeight();
-	if (newTopSc <= scrollTop) {
-		$('#timeline').width(890);
-	} else {
-		$('#timeline').width(590);
+	var wideTimelineWidth = 680;
+	var narowTimelineWidth = 590;
+
+	if ((dashboardFullHeight < scrollTop)) {
+		$('#timeline').width(wideTimelineWidth);
+		$('.dashboard').css('display','none');
+	} else if ((dashboardFullHeight > scrollTop)) {
+		$('#timeline').width(narowTimelineWidth);
+		$('.dashboard').css('display','block');
 	}
 });
 
