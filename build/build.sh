@@ -7,4 +7,3 @@ npm install -g grunt-cli
 npm install
 grunt download-atom-shell
 grunt copy
-grunt uglify
