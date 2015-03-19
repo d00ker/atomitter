@@ -27,7 +27,16 @@ app.dock.setBadge("badge");
 
 function handleWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow ({'width':900,'height':600,'min-width':900,'min-height':600,'max-width':900, 'max-height':2000, 'zoom-factor': 0.95});
+  var windowWidth = 890;
+  mainWindow = new BrowserWindow ({
+    'width': windowWidth,
+    'height': 600,
+    'min-width': windowWidth,
+    'min-height': 600,
+    'max-width': windowWidth,
+    'max-height': 2000,
+    'zoom-factor': 0.95
+  });
   // set size and position
   if ((windowPosition != null) && (windowSize != null)) {
     console.log("windowSize is " + windowSize);
@@ -40,7 +49,7 @@ function handleWindow() {
   console.log('twitter.com is loading...');
 
   // Do some stuff after page is loaded.
-  mainWindow.webContents.on('did-finish-load', function() {
+  mainWindow.webContents.on('did-frame-finish-load', function() {
     console.log('twitter.com is loaded!');
     var pathToJS = __dirname + '/atomitter.js';
     var pathToCSS = __dirname + '/atomitter.css';
@@ -59,6 +68,7 @@ function handleWindow() {
       mainWindow.webContents.insertCSS(data);
     });
   });
+
 
   // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {

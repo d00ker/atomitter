@@ -1,3 +1,9 @@
 #fav-btn .Icon.Icon--discover.Icon--large:before {
 	content: '';
 }
+.quote-action {
+    margin-right: 4px;
+}
+#timeline {
+	-webkit-transition: 0.3s all ease;
+}
