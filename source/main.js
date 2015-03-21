@@ -49,7 +49,7 @@ function handleWindow() {
   console.log('twitter.com is loading...');
 
   // Do some stuff after page is loaded.
-  mainWindow.webContents.on('did-frame-finish-load', function() {
+  mainWindow.webContents.on('did-finish-load', function() {
     console.log('twitter.com is loaded!');
     var pathToJS = __dirname + '/atomitter.js';
     var pathToCSS = __dirname + '/atomitter.css';
