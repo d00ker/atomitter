@@ -27,6 +27,7 @@ app.dock.setBadge("badge");
 
 function handleWindow() {
   // Create the browser window.
+  var windowUrl = "https://twitter.com/";
   var windowWidth = 890;
   mainWindow = new BrowserWindow ({
     'width': windowWidth,
@@ -35,7 +36,7 @@ function handleWindow() {
     'min-height': 600,
     'max-width': windowWidth,
     'max-height': 2000,
-    'zoom-factor': 0.95
+    'zoom-factor': 0.95,
   });
   // set size and position
   if ((windowPosition != null) && (windowSize != null)) {
@@ -47,28 +48,17 @@ function handleWindow() {
   // load the twitter.com
   mainWindow.loadUrl('https://twitter.com');
   console.log('twitter.com is loading...');
-
   // Do some stuff after page is loaded.
-  mainWindow.webContents.on('did-finish-load', function() {
-    console.log('twitter.com is loaded!');
-    var pathToJS = __dirname + '/atomitter.js';
-    var pathToCSS = __dirname + '/atomitter.css';
-    console.log("pathToJS is: " + pathToJS);
-    console.log("pathToCSS is: " + pathToCSS);
-    // load js
-    fs.readFile(pathToJS, 'utf8', function (err, data) {
-      if (err) throw err;
-      console.log("jsOnWebPage...\n\n" + data);
-      mainWindow.webContents.executeJavaScript(data);
-    });
-    // load css
-    fs.readFile(pathToCSS, 'utf8', function (err, data) {
-      if (err) throw err;
-      console.log("cssOnWebPage...\n\n" + data);
-      mainWindow.webContents.insertCSS(data);
-    });
-  });
+  mainWindow.webContents.on('did-finish-load', loadExternalFiles)
 
+  //var windowUrl = mainWindow.webContents.getUrl();
+  mainWindow.webContents.on('did-stop-loading', function() {
+    if (windowUrl != mainWindow.webContents.getUrl()) {
+      windowUrl = mainWindow.webContents.getUrl()
+      loadExternalFiles();
+    }
+    console.log("'did-stop-loading' is called");
+  });
 
   // Handle link clicks.
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
@@ -98,4 +88,26 @@ function handleWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  function loadExternalFiles () {
+    console.log('external files is loaded!');
+    console.log(mainWindow.webContents.getUrl());
+    var pathToJS = __dirname + '/atomitter.js';
+    var pathToCSS = __dirname + '/atomitter.css';
+    console.log("pathToJS is: " + pathToJS);
+    console.log("pathToCSS is: " + pathToCSS);
+    // load js
+    fs.readFile(pathToJS, 'utf8', function (err, data) {
+      if (err) throw err;
+      //console.log("jsOnWebPage...\n\n" + data);
+      mainWindow.webContents.executeJavaScript(data);
+    });
+    // load css
+    fs.readFile(pathToCSS, 'utf8', function (err, data) {
+      if (err) throw err;
+      //console.log("cssOnWebPage...\n\n" + data);
+      mainWindow.webContents.insertCSS(data);
+    });
+  };
+
 };
