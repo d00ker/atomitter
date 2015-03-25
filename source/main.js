@@ -1,6 +1,8 @@
 var app = require('app');  // Module to control application life.
-var fs = require('fs');
+var ipc = require('ipc'); // Module to send messages
+var fs = require('fs'); // Module to use file system
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+
 
 var windowPosition = null;
 var windowSize = null;
@@ -23,7 +25,12 @@ app.on('window-all-closed', function() {
 app.on('ready', handleWindow);
 app.on('activate-with-no-open-windows', handleWindow);
 
-app.dock.setBadge("badge");
+//app.dock.setBadge("badge");
+ipc.on('badge-message', function(event, arg) {
+  console.log(arg);  // prints "ping"
+  app.dock.setBadge(arg);
+});
+
 
 function handleWindow() {
   // Create the browser window.
@@ -64,7 +71,7 @@ function handleWindow() {
   mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
     if (disposition != 'default') {
       event.preventDefault();
-      if (process.platform = 'darwin') {
+      if (process.platform == 'darwin') {
         var exec = require('child_process').exec, child;
         child = exec('open ' + url + ' -g');
         console.log('open ' + url + ' -g');
@@ -80,6 +87,7 @@ function handleWindow() {
     console.log('position has been saved!');
     windowSize = mainWindow.getSize();
     console.log('size has been saved!');
+    app.dock.setBadge('');
   });
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -109,5 +117,4 @@ function handleWindow() {
       mainWindow.webContents.insertCSS(data);
     });
   };
-
 };

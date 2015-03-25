@@ -58,6 +58,29 @@ $('.js-actionRetweet').click(function() {
 	});
 });
 
-$('.people.notifications').find('.count-inner').bind('DOMSubtreeModified',function(){
-	var pes = $(this).text();
-});
+// $('.people.notifications').find('.count-inner').bind('DOMSubtreeModified',function(){
+// 	var pes = $(this).find('.count-inner').text();
+// 	alert(pes);
+// });
+
+var ipc = require('ipc');
+
+setInterval(function(){
+ 	var numberOfNotifications = $('.people.notifications').find('.count-inner').text();
+	var numberOfUnreadMessages = $('.dm-nav').find('.count-inner').text();
+  	var numberOfUnreadTweets = $('.stream-item').find('.new-tweets-bar').attr('data-item-count');
+	// alert("numberOfNotifications  –  " + numberOfNotifications);
+    // 	alert("numberOfUnreadMessages  –  " + numberOfUnreadMessages);
+    // 	alert("numberOfUnreadTweets  –  " + numberOfUnreadTweets);
+    numberOfUnreadTweets = numberOfUnreadTweets === undefined ? '0' : numberOfUnreadTweets;
+    numberOfUnreadMessages = numberOfUnreadMessages == '' ? '0' : numberOfUnreadMessages;
+
+ 	var message = numberOfUnreadTweets + '/' + numberOfNotifications + '/' + numberOfUnreadMessages;
+ 	ipc.send('badge-message', message);
+},3000);
+
+
+
+
+
+
