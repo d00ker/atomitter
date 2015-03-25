@@ -66,17 +66,18 @@ $('.js-actionRetweet').click(function() {
 var ipc = require('ipc');
 
 setInterval(function(){
+	if ($('.people.notifications').find('.count').css('display') == 'block') {
  	var numberOfNotifications = $('.people.notifications').find('.count-inner').text();
-	var numberOfUnreadMessages = $('.dm-nav').find('.count-inner').text();
-  	var numberOfUnreadTweets = $('.stream-item').find('.new-tweets-bar').attr('data-item-count');
-	// alert("numberOfNotifications  –  " + numberOfNotifications);
-    // 	alert("numberOfUnreadMessages  –  " + numberOfUnreadMessages);
-    // 	alert("numberOfUnreadTweets  –  " + numberOfUnreadTweets);
-    numberOfUnreadTweets = numberOfUnreadTweets === undefined ? '0' : numberOfUnreadTweets;
-    numberOfUnreadMessages = numberOfUnreadMessages == '' ? '0' : numberOfUnreadMessages;
+ 	numberOfNotifications = parseInt(numberOfNotifications);
+	} else { var numberOfNotifications = 0;};
 
- 	var message = numberOfUnreadTweets + '/' + numberOfNotifications + '/' + numberOfUnreadMessages;
- 	ipc.send('badge-message', message);
+	if ($('.dm-nav').find('.dm-new').css('display') == 'block') {
+ 	var numberOfUnreadMessages = $('.dm-nav').find('.count-inner').text();
+    numberOfUnreadMessages = numberOfUnreadMessages == '' ? 0 : parseInt(numberOfUnreadMessages);
+	} else { var numberOfUnreadMessages = 0;};
+  	// var numberOfUnreadTweets = $('.stream-item').find('.new-tweets-bar').attr('data-item-count');
+    // numberOfUnreadTweets = numberOfUnreadTweets === undefined ? 0 : parseInt(numberOfUnreadTweets);
+ 	ipc.send('to_badge', numberOfNotifications + numberOfUnreadMessages);
 },3000);
 
 

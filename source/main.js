@@ -26,11 +26,10 @@ app.on('ready', handleWindow);
 app.on('activate-with-no-open-windows', handleWindow);
 
 //app.dock.setBadge("badge");
-ipc.on('badge-message', function(event, arg) {
+ipc.on('to_badge', function(event, arg) {
   console.log(arg);  // prints "ping"
-  app.dock.setBadge(arg);
+  app.dock.setBadge(arg == 0 ? '' : arg.toString());
 });
-
 
 function handleWindow() {
   // Create the browser window.
