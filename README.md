@@ -1,3 +1,4 @@
+![atomitter logo](https://pp.vk.me/c623229/v623229982/28249/j_nhKXQNSJs.jpg)
 #atomitter#
 **atomitter** is just a wrapper for Twitter Web Client (aka [twitter.com](https://twitter.com)) based on [Atom Shell](https://github.com/atom/atom-shell)
 
