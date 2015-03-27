@@ -80,7 +80,16 @@ setInterval(function(){
  	ipc.send('to_badge', numberOfNotifications + numberOfUnreadMessages);
 },3000);
 
-
+function imageClickHandleNewWindow (argument) {
+	$(argument).click(function(){
+	  if ($(this).parents('.js-stream-item').hasClass('open')){
+	      var imgSrc = $(this).find('img').attr('src');
+	      window.open(imgSrc);
+	  }
+	});
+}
+imageClickHandleNewWindow('.multi-photo');
+imageClickHandleNewWindow('.is-preview');
 
 
 
