@@ -10,16 +10,16 @@ favorites_link.setAttribute("class","js-nav js-tooltip js-dynamic-tooltip");
 favorites_link.setAttribute("href","/favorites");
 favorites_nav.appendChild(favorites_link);
 
-var icon_span = document.createElement('span');
-icon_span.setAttribute("class","Icon Icon--favorite Icon--large");
-favorites_link.appendChild(icon_span);
+var favorites_icon_span = document.createElement('span');
+favorites_icon_span.setAttribute("class","Icon Icon--favorite Icon--large");
+favorites_link.appendChild(favorites_icon_span);
 
-var text_span = document.createElement('span');
-text_span.setAttribute("class","text");
-text_span.textContent = "Favorites";
-favorites_link.appendChild(text_span);
+var favorites_text_span = document.createElement('span');
+favorites_text_span.setAttribute("class","text");
+favorites_text_span.textContent = "Favorites";
+favorites_link.appendChild(favorites_text_span);
 
-if ($('#global-nav-favorites').length == 0) { // check if exist
+if ($('#global-nav-favorites').length == 0) { // check if isn't exist
 	$('#global-nav-home').after(favorites_nav);
 }
 
@@ -58,38 +58,26 @@ $('.js-actionRetweet').click(function() {
 	});
 });
 
-// $('.people.notifications').find('.count-inner').bind('DOMSubtreeModified',function(){
-// 	var pes = $(this).find('.count-inner').text();
-// 	alert(pes);
-// });
-
 var ipc = require('ipc');
 
 setInterval(function(){
 	if ($('.people.notifications').find('.count').css('display') == 'block') {
- 	var numberOfNotifications = $('.people.notifications').find('.count-inner').text();
- 	numberOfNotifications = parseInt(numberOfNotifications);
+	 	var numberOfNotifications = $('.people.notifications').find('.count-inner').text();
+	 	numberOfNotifications = parseInt(numberOfNotifications);
 	} else { var numberOfNotifications = 0;};
 
 	if ($('.dm-nav').find('.dm-new').css('display') == 'block') {
- 	var numberOfUnreadMessages = $('.dm-nav').find('.count-inner').text();
-    numberOfUnreadMessages = numberOfUnreadMessages == '' ? 0 : parseInt(numberOfUnreadMessages);
+	 	var numberOfUnreadMessages = $('.dm-nav').find('.count-inner').text();
+	    numberOfUnreadMessages = numberOfUnreadMessages == '' ? 0 : parseInt(numberOfUnreadMessages);
 	} else { var numberOfUnreadMessages = 0;};
   	// var numberOfUnreadTweets = $('.stream-item').find('.new-tweets-bar').attr('data-item-count');
     // numberOfUnreadTweets = numberOfUnreadTweets === undefined ? 0 : parseInt(numberOfUnreadTweets);
  	ipc.send('to_badge', numberOfNotifications + numberOfUnreadMessages);
 },3000);
 
-function imageClickHandleNewWindow (argument) {
-	$(argument).click(function(){
-	  if ($(this).parents('.js-stream-item').hasClass('open')){
-	      var imgSrc = $(this).find('img').attr('src');
-	      window.open(imgSrc);
-	  }
-	});
-}
-imageClickHandleNewWindow('.multi-photo');
-imageClickHandleNewWindow('.is-preview');
+
+
+
 
 
 
