@@ -1,9 +1,57 @@
 <!DOCTYPE html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title></title>
+		<title>Photo view</title>
+		<style type="text/css">
+			body {
+				/*position: relative;*/
+			}
+			#canvas-buttons {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 88px;
+				background-color: rgba(0, 0, 0, 0);
+			}
+			#close-btn,
+			#share-btn {
+				background: url('imgs/Delete-48.png') no-repeat 0 0 transparent;
+				width: 48px;
+				height: 48px;
+				position: absolute;
+				cursor: pointer;
+				transform: rotate(0);
+				transition: all 1.3s ease 0s;
+				-webkit-app-region: no-drag;
+				display: none;
+			}
+			#close-btn {
+				top: 20px;
+				left: 20px;
+			}
+			#share-btn {
+				right: 20px;
+				top: 20px;
+			}
+			#close-btn:hover, #share-btn:hover {
+				transform: rotate(36000000000deg);
+				transition: all 1000s ease 0s;
+			}
+			#canvas-buttons:hover {
+				background-color: rgba(0, 0, 0, .5);
+			}
+			#canvas-buttons:hover #close-btn,
+			#canvas-buttons:hover #share-btn {
+				display: block;
+			}
+		</style>
 	</head>
 	<body style="margin: 0; -webkit-app-region: drag;">
+		<div id="canvas-buttons">
+			<div id="close-btn"></div>
+			<div id="share-btn"></div>
+		</div>
 		<script type="text/javascript">
 			var ipc = require('ipc');
 			ipc.on('imageUrl', function(url) {
@@ -14,7 +62,7 @@
 				};
 				document.body.appendChild(photo);
 			});
-
+			document.getElementById('close-btn').onclick = function(){window.close();};
 		</script>
 	</body>
 </html>
