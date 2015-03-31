@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+	</head>
+	<body style="margin: 0; -webkit-app-region: drag;">
+		<script type="text/javascript">
+			var ipc = require('ipc');
+			ipc.on('imageUrl', function(url) {
+				var photo = document.createElement('img');
+				photo.src = url;
+				photo.onload = function(){
+					ipc.send('photoSize', photo.width, photo.height);
+				};
+				document.body.appendChild(photo);
+			});
+
+		</script>
+	</body>
+</html>
