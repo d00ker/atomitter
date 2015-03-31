@@ -1,8 +1,9 @@
+var http = require("http");
+var https = require("https");
 var app = require('app');  // Module to control application life.
 var ipc = require('ipc'); // Module to send messages
 var fs = require('fs'); // Module to use file system
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-
 
 var windowPosition = null;
 var windowSize = null;
@@ -25,9 +26,8 @@ app.on('window-all-closed', function() {
 app.on('ready', handleWindow);
 app.on('activate-with-no-open-windows', handleWindow);
 
-//app.dock.setBadge("badge");
 ipc.on('to_badge', function(event, arg) {
-  console.log(arg);  // prints "ping"
+  console.log("Set app badge as: " + arg);
   app.dock.setBadge(arg == 0 ? '' : arg.toString());
 });
 
@@ -56,30 +56,17 @@ function handleWindow() {
   console.log('twitter.com is loading...');
   // Do some stuff after page is loaded.
   mainWindow.webContents.on('did-finish-load', loadExternalFiles)
-
-  //var windowUrl = mainWindow.webContents.getUrl();
   mainWindow.webContents.on('did-stop-loading', function() {
+    console.log("'did-stop-loading' is emitted");
     if (windowUrl != mainWindow.webContents.getUrl()) {
       windowUrl = mainWindow.webContents.getUrl()
+      console.log("Current URL: " + mainWindow.webContents.getUrl());
       loadExternalFiles();
     }
-    console.log("'did-stop-loading' is called");
   });
-
   // Handle link clicks.
-  mainWindow.webContents.on('new-window', function(event, url, frameName, disposition) {
-    if (disposition != 'default') {
-      event.preventDefault();
-      if (process.platform == 'darwin') {
-        var exec = require('child_process').exec, child;
-        child = exec('open ' + url + ' -g');
-        console.log('open ' + url + ' -g');
-      } else { // if not OSX
-        var shell = require('shell');
-        shell.openExternal(url);
-      }
-    }
-  });
+  mainWindow.webContents.on('new-window', linkClick);
+
   // Emitted when the window is prepare to be closed.
   mainWindow.on('close', function() {
     windowPosition = mainWindow.getPosition();
@@ -88,6 +75,7 @@ function handleWindow() {
     console.log('size has been saved!');
     app.dock.setBadge('');
   });
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -97,12 +85,11 @@ function handleWindow() {
   });
 
   function loadExternalFiles () {
-    console.log('external files is loaded!');
-    console.log(mainWindow.webContents.getUrl());
+    console.log('external files is loading...');
     var pathToJS = __dirname + '/atomitter.js';
     var pathToCSS = __dirname + '/atomitter.css';
-    console.log("pathToJS is: " + pathToJS);
-    console.log("pathToCSS is: " + pathToCSS);
+    //console.log("pathToJS is: " + pathToJS);
+    //console.log("pathToCSS is: " + pathToCSS);
     // load js
     fs.readFile(pathToJS, 'utf8', function (err, data) {
       if (err) throw err;
@@ -115,5 +102,52 @@ function handleWindow() {
       //console.log("cssOnWebPage...\n\n" + data);
       mainWindow.webContents.insertCSS(data);
     });
+    console.log('external files is loaded!');
   };
+
+  function openUrlInDefaultBrowser (event, url, frameName, disposition) {
+    if (disposition != 'default') {
+      if (process.platform == 'darwin') {
+        var exec = require('child_process').exec, child;
+        child = exec('open ' + url + ' -g');
+        console.log('Execute in console: open ' + url + ' -g');
+      } else { // if not OSX
+        var shell = require('shell');
+        shell.openExternal(url);
+      }
+    }
+  };
+
+  function linkClick (event, url, frameName, disposition) {
+    event.preventDefault()
+    var requestURL = "http://api.longurl.org/v2/expand?format=json&url=" + url, longURL;
+    http.get(requestURL, function(response) {
+      response.on('data', function (chunk) {
+        longURL = JSON.parse(chunk)['long-url'];
+        if (longURL.search('instagram.com/p/') != -1) {
+          var photoWindow = new BrowserWindow({
+            'resizable': false,
+            'use-content-size': true,
+            'frame': false,
+            'web-preferences': {'overlay-scrollbars': true},
+          });
+          photoWindow.on('closed', function() {photoWindow = null;});
+          photoWindow.loadUrl('file://' + __dirname + '/photoView.html');
+          photoWindow.webContents.on('did-finish-load', function () {
+            var imageUrl = longURL + "media/?size=l";
+            console.log('Image URL "' + imageUrl + '" has been sended!');
+            photoWindow.webContents.send('imageUrl', imageUrl);
+          });
+          ipc.on('photoSize', function(event, width, height) {
+            console.log("Set window width and height: " + width + "  / " + height);
+            photoWindow.setSize (width, height);
+          });
+        } else {
+          openUrlInDefaultBrowser(event, url, frameName, disposition);
+        }
+      })
+    }).on('error', function(e) {
+      console.log("Got error: " + e.message);
+    });
+  }
 };
