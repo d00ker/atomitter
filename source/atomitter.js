@@ -1,5 +1,3 @@
-document.documentElement.style.overflowX = 'hidden'; 
-
 var favorites_nav = document.createElement('li');
 favorites_nav.setAttribute("id", "global-nav-favorites");
 favorites_nav.setAttribute("data-global-action", "favorites");
@@ -29,7 +27,6 @@ $('#global-nav-favorites:hover').find('a').attr('data-original-title', 'Favorite
 
 if ($('.dashboard').length != 0) { // check if not exist
 	var dashboardFullHeight = $('.dashboard').height() + $('.dashboard').offset().top;
-
 	$(window).scroll(function() {
 		var scrollTop = $(this).scrollTop();
 		var wideTimelineWidth = 680;
@@ -76,11 +73,3 @@ setInterval(function(){
     // numberOfUnreadTweets = numberOfUnreadTweets === undefined ? 0 : parseInt(numberOfUnreadTweets);
  	ipc.send('to_badge', numberOfNotifications + numberOfUnreadMessages);
 },3000);
-
-
-
-
-
-
-
-
