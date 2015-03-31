@@ -1,3 +1,5 @@
+document.documentElement.style.overflowX = 'hidden'; 
+
 var favorites_nav = document.createElement('li');
 favorites_nav.setAttribute("id", "global-nav-favorites");
 favorites_nav.setAttribute("data-global-action", "favorites");
